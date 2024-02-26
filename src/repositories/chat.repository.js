@@ -1,11 +1,13 @@
 export default class ChatRepository {
-    constructor(dao) {
-        this.dao = dao;
-    }
-    getAll = () => {
-        return this.dao.getAll();
-    }
-    save = (cart) => {
-        return this.dao.save(mesg);
-    }
-};
+  constructor(dao) {
+    this.dao = dao;
+  }
+
+  createMessage = (mesg) => {
+    return chatModel.create(mesg);
+  };
+  
+  getAllMessages = (mesg) => {
+    return chatModel.find();
+  };
+}

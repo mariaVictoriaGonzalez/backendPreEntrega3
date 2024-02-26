@@ -6,8 +6,4 @@ export default class UsersRepository {
   getUserByEmail = (email) => {
     return this.dao.getUserByEmail({ email });
   };
-
-  save = (user) => {
-    return this.dao.create(user);
-  };
 }

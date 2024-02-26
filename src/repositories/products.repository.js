@@ -6,27 +6,25 @@ export default class ProductsRepository {
   }
 
   getAllProducts = () => {
-    console.log(this.dao)
-
     return this.dao.getAllProducts();
   };
 
   getProductById(_id) {
     const objectId = new mongoose.Types.ObjectId(_id);
-    return this.dao.findById(objectId);
+    return this.dao.getProductById(objectId);
   }
 
   createProduct = (product) => {
-    return this.dao.save(product);
+    return this.dao.createProduct(product);
   };
 
   updateProduct = (_id, product) => {
     const objectId = new mongoose.Types.ObjectId(_id);
-    return this.dao.findByIdAndUpdate(objectId, product);
+    return this.dao.updateProduct(objectId, product);
   };
 
   deleteProduct = (_id) => {
     const objectId = new mongoose.Types.ObjectId(_id);
-    return this.dao.findByIdAndDelete(objectId);
+    return this.dao.deleteProduct(objectId);
   };
 }
