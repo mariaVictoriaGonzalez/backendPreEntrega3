@@ -1,6 +1,6 @@
 import { chatModel } from "../models/message.model.js";
 
-class ChatService {
+export default class ChatService {
   async createMessage(mesg) {
     try {
       return await chatModel.create(mesg);
@@ -18,4 +18,3 @@ class ChatService {
   }
 }
 
-export default new ChatService();

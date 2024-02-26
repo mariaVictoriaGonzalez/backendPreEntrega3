@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { authorization, passportCall } from "../utils.js";
+import { renderChatLog, sendMessage } from "../controllers/chat.controller.js"
 
 const router = Router();
 
