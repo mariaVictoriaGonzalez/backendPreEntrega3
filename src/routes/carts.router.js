@@ -29,6 +29,8 @@ router.put("/:cid", passportCall("jwt"), authorization("user"), modifyProductQua
 
 router.put("/:cid/products/:pid", passportCall("jwt"), authorization("user"), modifyProductOnCart);
 
-router.post("/:cid/purchase", passportCall, passportCall("jwt"), authorization("user"), )
+router.get("/:cid/purchase", passportCall("jwt"), authorization("user"), )
+
+router.post("/:cid/purchase", passportCall("jwt"), authorization("user"), )
 
 export default router;

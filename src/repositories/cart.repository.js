@@ -12,23 +12,23 @@ export default class CartRepository {
   };
 
   getCartById = (_id) => {
-    return cartModel.getCartById(_id);
+    return this.dao.getCartById(_id);
   };
 
   updateCart = (cid, cart) => {
-    return cartModel.updateCart({ _id: cid }, cart);
+    return this.dao.updateCart({ _id: cid }, cart);
   };
 
   deleteCart = (_id) => {
-    return cartModel.deleteCart(_id);
+    return this.dao.deleteCart(_id);
   };
 
   deleteAllCarts = () => {
-    return cartModel.deleteAllCarts();
+    return this.dao.deleteAllCarts();
   };
 
   getProductsFromCart = (cid) => {
-    return cartModel
+    return this.dao
       .findOne({ _id: cid })
       .populate({
         path: "products.product",
