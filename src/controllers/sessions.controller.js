@@ -29,7 +29,7 @@ export const loginUser = async (req, res) => {
     console.log(access_token);
 
     res.cookie("jwtCookieToken", access_token, {
-      maxAge: 60000,
+      maxAge: 100000,
       httpOnly: true,
     });
     res.send({ message: "Login success!!" });
