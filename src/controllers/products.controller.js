@@ -1,10 +1,6 @@
-import ProductsService from "../services/dao/products.dao.js";
-import UsersService from "../services/dao/users.dao.js";
+import { productsService, usersService } from "../services/service.js";
 
-const productsService = new ProductsService();
-const usersService = new UsersService();
-
-export const getAllPRoducts = async (request, response) => {
+export async function getAllPRoducts(request, response) {
   try {
     const { limit, page, query, sort } = request.query;
     const userEmail = request.user.email;

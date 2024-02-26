@@ -1,8 +1,5 @@
-import CartsService from "../services/dao/carts.dao.js";
-import ProductsService from "../services/dao/products.dao.js";
-
-const cartService = new CartsService();
-const productsService = new ProductsService()
+import { cartService } from "../services/service.js";
+import { productsService } from "../services/service.js";
 
 
 export const getNewCart = async (req, res) => {

@@ -11,4 +11,4 @@ const schema = new mongoose.Schema({
 
 const ticketModel = mongoose.model(collection, schema);
 
-export { ticketModel };
+export default ticketModel ;

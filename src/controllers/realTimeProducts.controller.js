@@ -1,4 +1,4 @@
-import ProductsService from "../services/dao/products.dao.js";
+import ProductsService from "../services/dao/mongoDb/products.dao.js";
 import realTimeProductsSocket from "../sockets/realTimeProducts.socket.js";
 
 const productsService = new ProductsService();

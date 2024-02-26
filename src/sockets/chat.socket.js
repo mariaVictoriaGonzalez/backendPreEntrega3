@@ -1,4 +1,4 @@
-import ChatService from "../services/dao/chat.dao.js";
+import ChatService from "../services/dao/mongoDb/chat.dao.js";
 
 const chatService = new ChatService();
 

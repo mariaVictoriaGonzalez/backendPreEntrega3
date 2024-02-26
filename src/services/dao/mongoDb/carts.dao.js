@@ -1,6 +1,6 @@
-import { cartModel } from "../models/cart.model.js";
+import { cartModel } from "../../models/cart.model.js";
 
-export default class CartsService {
+export default class CartsServiceDao {
   async getAllCarts() {
     try {
       return await cartModel.find();
@@ -27,9 +27,7 @@ export default class CartsService {
 
   async updateCart(cid, cart) {
     try {
-      const updatedCart = await cartModel.updateOne(
-
-        { _id:cid },cart);
+      const updatedCart = await cartModel.updateOne({ _id: cid }, cart);
 
       if (!updatedCart) {
         throw new Error("Cart not found");
@@ -70,4 +68,4 @@ export default class CartsService {
       throw new Error(`Error getting products from cart: ${error.message}`);
     }
   }
-    }
+}

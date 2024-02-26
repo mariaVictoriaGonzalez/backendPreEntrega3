@@ -1,7 +1,5 @@
-import ChatService from "../services/dao/chat.dao.js";
+import { chatService } from "../services/service.js";
 import chatSocket from "../sockets/chat.socket.js";
-
-const chatService = new ChatService();
 
 export const renderChatLog = (request, response) => {
   response.render("chat", {
