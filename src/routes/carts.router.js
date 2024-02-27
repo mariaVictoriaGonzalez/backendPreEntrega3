@@ -9,6 +9,7 @@ import {
   modifyProductQuantityToCart,
   modifyProductOnCart,
 } from "../controllers/carts.controller.js";
+import { createTicket } from "../controllers/ticket.controller.js";
 import { authorization, passportCall } from "../utils.js";
 
 const router = Router();
@@ -31,6 +32,6 @@ router.put("/:cid/products/:pid", passportCall("jwt"), authorization("user"), mo
 
 router.get("/:cid/purchase", passportCall("jwt"), authorization("user"), )
 
-router.post("/:cid/purchase", passportCall("jwt"), authorization("user"), )
+router.post("/:cid/purchase",  createTicket)
 
 export default router;

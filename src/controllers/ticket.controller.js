@@ -1,4 +1,4 @@
-import ticketService from "../services/service.js";
+import { ticketService } from "../services/service.js";
 import TicketDTO from "../services/dao/DTOs/user.dto.js";
 
 export async function getAllTickets(req, res) {
@@ -13,15 +13,14 @@ export async function getAllTickets(req, res) {
   }
 }
 
-export async function saveTicket(req, res) {
+export const createTicket = async (req, res) => {
   try {
-    const ticketDTO = new TicketDTO(req.body);
-    let result = await ticketService.save(ticketDTO);
-    res.status(201).send(result);
+    const { code, purchase_datetime, amount, purchaser } = req.body;
+    const ticketDTO = new TicketDTO({ code, purchase_datetime, amount, purchaser });
+    const createdTicket = await ticketService.createTicket(ticketDTO);
+    res.status(201).json(createdTicket);
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .send({ error: error, message: "No se pudo guardar el ticket." });
+    console.error("Error creating ticket:", error);
+    res.status(500).json({ error: "Internal Server Error." });
   }
-}
+};

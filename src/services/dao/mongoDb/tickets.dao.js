@@ -1,4 +1,5 @@
 import ticketModel from "../../models/ticket.model.js";
+import TicketDTO from "../DTOs/ticket.dto.js";
 
 export default class TicketServiceDao {
     constructor() {
@@ -9,9 +10,9 @@ export default class TicketServiceDao {
         let ticket = await ticketModel.find();
         return ticket.map(ticket => ticket.toObject());
     }
-    saveTicket = async (ticket) => {
-        let result = await ticketModel.create(ticket);
-        return result;
+    createTicket = async (ticketData) => {
+        const ticket = new ticketModel(ticketData);
+        return ticket.save();
     }
 
     findTicketByUsername = async (username) => {

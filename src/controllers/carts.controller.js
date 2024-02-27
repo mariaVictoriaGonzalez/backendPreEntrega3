@@ -1,6 +1,5 @@
-import { cartService } from "../services/service.js";
+import { cartService, ticketService } from "../services/service.js";
 import { productsService } from "../services/service.js";
-
 
 export const getNewCart = async (req, res) => {
   try {
@@ -173,3 +172,77 @@ export const modifyProductOnCart = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
+
+export const finishPurchase = async (req, res) => {
+  try {
+    const cartId = req.params.cid;
+    const cart = await cartService.getCartById(cartId);
+
+    if (!cart) {
+      return res.status(404).json({ error: "Cart not found." });
+    }
+
+    let finalAmount = 0;
+    let productsWithStock = [];
+
+    for (const item of cart.products) {
+      try {
+        const product = await productsService.getProductById(item.product);
+
+        // Verificar stock
+        if (product && product.stock >= item.quantity) {
+          finalAmount += item.quantity * product.price;
+
+          // Actualizar stock
+          await productsService.updateProduct(item.product, {
+            stock: product.stock - item.quantity,
+          });
+
+          // Agregar el producto con stock a la lista
+          productsWithStock.push({
+            product: product._id,
+            quantity: item.quantity,
+          });
+        } else {
+          console.warn(
+            `Product with ID ${item.product} does not have enough stock and will remain in the cart.`
+          );
+        }
+      } catch (error) {
+        console.error("Error processing product:", error);
+      }
+    }
+
+    cart.finalAmount = finalAmount;
+    cart.products = productsWithStock; // Actualizar la lista de productos en el carrito
+
+    await cartService.updateCart(cartId, cart);
+
+    const userEmail = req.user.email;
+    const purchaser = userEmail;
+
+    console.log(purchaser)
+    // Crear un ticket solo si hay productos con stock
+    if (productsWithStock.length > 0) {
+      newTicket = await ticketService.createTicket({
+        code: generateTicketCode(),
+        amount: finalAmount,
+        purchaser: purchaser,
+      });
+    }
+
+    res.json({
+      message: "Purchase completed successfully.",
+      finalAmount,
+      newTicket,
+    });
+  } catch (error) {
+    console.error("Error finishing purchase:", error);
+    res.status(500).json({ error: "Internal Server Error." });
+  }
+};
+
+// Generar codigo random de ticket
+function generateTicketCode() {
+  return Date.now().toString(36);
+}

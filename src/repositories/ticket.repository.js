@@ -7,9 +7,6 @@ export default class TicketRepository {
   getAll = async () => {
     return this.dao.getAll();
   };
-  save = async (purchaser) => {
-    let purchaserToInclude = new TicketDTO(purchaser);
-    let result = await this.dao.create(purchaserToInclude);
-    return result;
-  };
+  createTicket = async (ticketData) => {
+    return this.dao.createTicket(ticketData);  };
 }
