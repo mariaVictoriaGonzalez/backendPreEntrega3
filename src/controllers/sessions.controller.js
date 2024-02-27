@@ -30,7 +30,7 @@ export const loginUser = async (req, res) => {
 
     res.cookie("jwtCookieToken", access_token, {
       maxAge: 100000,
-      httpOnly: true,
+      httpOnly: false,
     });
     res.send({ message: "Login success!!" });
   } catch (error) {
@@ -74,7 +74,7 @@ export const githubLogin = async (req, res) => {
 
   res.cookie("jwtCookieToken", access_token, {
     maxAge: 60000,
-    httpOnly: true,
+    httpOnly: false,
   });
   res.redirect("/api/products");
 };

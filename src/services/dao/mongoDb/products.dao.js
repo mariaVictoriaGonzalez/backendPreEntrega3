@@ -49,13 +49,13 @@ export default class ProductsServiceDao {
 
   async updateProduct(_id, product) {
     try {
-      const objectId = new mongoose.Types.ObjectId(objectId);
+      const objectId = new mongoose.Types.ObjectId(_id);
       return await productModel.findByIdAndUpdate(objectId, product);
     } catch (error) {
       throw new Error(`Error while updating product: ${error.message}`);
     }
   }
-
+  
   async deleteProduct(_id) {
     try {
       const objectId = new mongoose.Types.ObjectId(objectId);

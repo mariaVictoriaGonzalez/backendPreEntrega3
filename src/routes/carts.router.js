@@ -8,8 +8,8 @@ import {
   addProductToCart,
   modifyProductQuantityToCart,
   modifyProductOnCart,
+  finishPurchase,
 } from "../controllers/carts.controller.js";
-import { createTicket } from "../controllers/ticket.controller.js";
 import { authorization, passportCall } from "../utils.js";
 
 const router = Router();
@@ -24,14 +24,12 @@ router.delete("/:cid", deleteCartById);
 
 router.delete("/:cid/products/:pid", passportCall("jwt"), authorization("user"), deleteProductFromCart);
 
-router.post("/:cid/products/:pid", passportCall("jwt"), authorization("user"), addProductToCart);
+router.post("/:cid/products/:pid", addProductToCart);
 
 router.put("/:cid", passportCall("jwt"), authorization("user"), modifyProductQuantityToCart);
 
 router.put("/:cid/products/:pid", passportCall("jwt"), authorization("user"), modifyProductOnCart);
 
-router.get("/:cid/purchase", passportCall("jwt"), authorization("user"), )
-
-router.post("/:cid/purchase",  createTicket)
+router.post("/:cid/purchase", passportCall("jwt"), authorization("user"), finishPurchase)
 
 export default router;

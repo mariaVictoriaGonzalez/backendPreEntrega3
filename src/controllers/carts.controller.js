@@ -219,15 +219,13 @@ export const finishPurchase = async (req, res) => {
     await cartService.updateCart(cartId, cart);
 
     const userEmail = req.user.email;
-    const purchaser = userEmail;
 
-    console.log(purchaser)
     // Crear un ticket solo si hay productos con stock
     if (productsWithStock.length > 0) {
       newTicket = await ticketService.createTicket({
-        code: generateTicketCode(),
+        code: `${req.params.cid}_${Date.now()}`,
         amount: finalAmount,
-        purchaser: purchaser,
+        purchaser: userEmail,
       });
     }
 
@@ -238,11 +236,9 @@ export const finishPurchase = async (req, res) => {
     });
   } catch (error) {
     console.error("Error finishing purchase:", error);
+        console.log(req.user)
+
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
 
-// Generar codigo random de ticket
-function generateTicketCode() {
-  return Date.now().toString(36);
-}
