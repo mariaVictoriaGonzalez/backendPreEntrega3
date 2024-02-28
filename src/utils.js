@@ -15,7 +15,7 @@ export const isValidPassword = (user, password) =>
 
 
 export const generateJWToken = (user) => {
-  return jwt.sign({ user }, config.privateKey, { expiresIn: "90s" });
+  return jwt.sign({ user }, config.privateKey, { expiresIn: "190s" });
 };
 
 export const authToken = (req, res, next) => {

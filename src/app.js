@@ -32,7 +32,7 @@ app.use(
       ttl: 60,
     }),
 
-    secret: "coderS3cr3t",
+    secret: config.privateKey,
     resave: false,
     saveUninitialized: false,
   })
@@ -50,7 +50,7 @@ app.get("/", (request, response) => {
   response.send("<h1> Bienvenidos al servidor.</h1>");
 });
 
-app.use(cookieParser("coderS3cr3t"));
+app.use(cookieParser(config.privateKey));
 
 initializePassport();
 app.use(passport.initialize());

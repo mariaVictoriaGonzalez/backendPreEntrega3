@@ -11,7 +11,6 @@ export async function getAllPRoducts(request, response) {
       query,
       sort
     );
-    console.log(productsToRender);
 
     const userEmail = request.user.email;
     const userFromDatabase = await usersService.getUserByEmail(userEmail);

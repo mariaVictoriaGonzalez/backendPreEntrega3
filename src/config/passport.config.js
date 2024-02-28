@@ -4,6 +4,7 @@ import { userModel } from "../services/models/user.model.js";
 import { createHash, isValidPassword } from "../utils.js";
 import GitHubStrategy from "passport-github2";
 import jwtStrategy from "passport-jwt";
+import config from "./config.js";
 
 const localStrategy = passportLocal.Strategy;
 
@@ -16,7 +17,7 @@ const initializePassport = () => {
     new JwtStrategy(
       {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: "CoderhouseBackendCourseSecretKeyJWT",
+        secretOrKey: config.privateKey,
       },
       async (jwt_payload, done) => {
         console.log("Entrando a passport Strategy con JWT.");
@@ -78,7 +79,6 @@ const initializePassport = () => {
     new localStrategy(
       { passReqToCallback: true, usernameField: "email" },
       async (req, username, password, done) => {
-        const { email } = req.body;
 
         try {
           const user = await userModel.findOne({ email: username });

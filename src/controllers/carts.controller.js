@@ -13,14 +13,16 @@ export const getNewCart = async (req, res) => {
 
 export const renderCart = async (req, res) => {
   try {
-    const cartsToRender = await cartService.getAllCarts();
-    console.log(cartsToRender);
+    const cartToRender = await cartService.getCartById(req.params.cid);
+    console.log(cartToRender);
 
-    const cartIds = cartsToRender.map((cart) => cart._id);
+    res.render("cart", {
+      title: "Carrito",
+      cartToRender,
+    })
 
-    res.json({ cartIds });
   } catch (error) {
-    console.error("Error getting all carts:", error);
+    console.error("Error getting the cart:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -177,6 +179,7 @@ export const finishPurchase = async (req, res) => {
   try {
     const cartId = req.params.cid;
     const cart = await cartService.getCartById(cartId);
+    console.log(req.token)
 
     if (!cart) {
       return res.status(404).json({ error: "Cart not found." });
@@ -218,7 +221,7 @@ export const finishPurchase = async (req, res) => {
 
     await cartService.updateCart(cartId, cart);
 
-    const userEmail = req.user.email;
+    const userEmail = req.user.username;
 
     // Crear un ticket solo si hay productos con stock
     if (productsWithStock.length > 0) {

@@ -22,13 +22,15 @@ router.get("/:cid", getCartById);
 
 router.delete("/:cid", deleteCartById);
 
-router.delete("/:cid/products/:pid", passportCall("jwt"), authorization("user"), deleteProductFromCart);
+router.delete("/:cid/products/:pid", deleteProductFromCart);
 
 router.post("/:cid/products/:pid", addProductToCart);
 
-router.put("/:cid", passportCall("jwt"), authorization("user"), modifyProductQuantityToCart);
+router.put("/:cid", modifyProductQuantityToCart);
 
-router.put("/:cid/products/:pid", passportCall("jwt"), authorization("user"), modifyProductOnCart);
+router.put("/:cid/products/:pid", modifyProductOnCart);
+
+router.get("/:cid/purchase", passportCall("jwt"), authorization("user"), renderCart)
 
 router.post("/:cid/purchase", passportCall("jwt"), authorization("user"), finishPurchase)
 
