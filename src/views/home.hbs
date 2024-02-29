@@ -19,6 +19,8 @@
     {{/each}}
   </ul>
 
+  <button id="goToCartButton" onclick="goToCart('{{cartId}}')" type="button">Ir al Carrito</button>
+
   {{#if productsToRender.prevPage}}
     <div class="pagination-button">
       <button><a

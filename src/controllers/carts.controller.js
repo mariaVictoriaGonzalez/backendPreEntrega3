@@ -200,6 +200,7 @@ export const finishPurchase = async (req, res) => {
 
     let finalAmount = 0;
     let productsWithStock = [];
+    let newTicket; // Declare newTicket here
 
     for (const item of cart.products) {
       try {
@@ -234,7 +235,7 @@ export const finishPurchase = async (req, res) => {
 
     await cartService.updateCart(cartId, cart);
 
-    const userEmail = req.user.username;
+    const userEmail = req.user.email;
 
     // Crear un ticket solo si hay productos con stock
     if (productsWithStock.length > 0) {
@@ -252,9 +253,8 @@ export const finishPurchase = async (req, res) => {
     });
   } catch (error) {
     console.error("Error finishing purchase:", error);
-        console.log(req.user)
+    console.log(req.user)
 
     res.status(500).json({ error: "Internal Server Error." });
   }
 };
-
