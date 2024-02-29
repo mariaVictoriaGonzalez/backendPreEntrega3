@@ -11,6 +11,19 @@ export const getNewCart = async (req, res) => {
   }
 };
 
+export const getAllCarts = async (req, res) => {
+  try {
+    const cartsToRender = await cartService.getAllCarts();
+    console.log(cartsToRender);
+
+    const cartIds = cartsToRender.map(cart => cart._id);
+
+    res.json({ cartIds });
+  } catch (error) {
+    console.error("Error getting all carts:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }}
+
 export const renderCart = async (req, res) => {
   try {
     const cartToRender = await cartService.getCartById(req.params.cid);

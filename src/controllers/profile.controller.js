@@ -1,6 +1,7 @@
+import UserDTO from "../services/dao/DTOs/user.dto.js";
 import UserService from "../services/dao/mongoDb/users.dao.js";
 
-const userService = new UserService();
+const usersService = new UserService();
 
 export const renderProfile = async (request, response) => {
   try {
@@ -8,14 +9,14 @@ export const renderProfile = async (request, response) => {
       return response.status(401).send("Unauthorized: Usuario no autenticado");
     }
 
-    const userEmail = request.user.email;
-    const userFromDatabase = await userService.getUserByEmail(userEmail);
+    console.log(request.user.email)
+    const email = request.user.email;
+    const userFromDatabase = await usersService.getUserByEmail(email);
     const userToRender = new UserDTO(userFromDatabase);
 
     response.render("profile", {
       title: "Perfil",
       userToRender,
-      fileCss: "../css/styles.css",
     });
   } catch (error) {
     console.error("Error:", error);

@@ -1,8 +1,9 @@
-import UserDTO from "../services/dao/DTOs/user.dto.js";
 import { productsService, usersService } from "../services/service.js";
 
 export async function getAllPRoducts(request, response) {
+
   try {
+    
     const { limit, page, query, sort } = request.query;
 
     const productsToRender = await productsService.getAllProducts(
@@ -12,15 +13,9 @@ export async function getAllPRoducts(request, response) {
       sort
     );
 
-    const userEmail = request.user.email;
-    const userFromDatabase = await usersService.getUserByEmail(userEmail);
-    const userToRender = new UserDTO(userFromDatabase);
-
-
     response.render("home", {
       title: "Productos",
       productsToRender,
-      userToRender,
       fileCss: "../css/styles.css",
     });
   } catch (error) {

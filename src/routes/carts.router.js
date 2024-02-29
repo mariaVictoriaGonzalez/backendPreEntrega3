@@ -9,6 +9,7 @@ import {
   modifyProductQuantityToCart,
   modifyProductOnCart,
   finishPurchase,
+  getAllCarts,
 } from "../controllers/carts.controller.js";
 import { authorization, passportCall } from "../utils.js";
 
@@ -16,7 +17,7 @@ const router = Router();
 
 router.post("/", passportCall("jwt"), authorization("user"), getNewCart);
 
-router.get("/", renderCart);
+router.get("/", getAllCarts);
 
 router.get("/:cid", getCartById);
 
