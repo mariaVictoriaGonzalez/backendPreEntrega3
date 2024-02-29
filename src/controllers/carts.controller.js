@@ -200,7 +200,7 @@ export const finishPurchase = async (req, res) => {
 
     let finalAmount = 0;
     let productsWithStock = [];
-    let newTicket; // Declare newTicket here
+    let newTicket; 
 
     for (const item of cart.products) {
       try {
