@@ -12,7 +12,6 @@ import {
   getAllCarts,
 } from "../controllers/carts.controller.js";
 import { authorization, passportCall } from "../utils.js";
-import { sendTicketByEmail } from "../controllers/sendTicketByMail.controller.js";
 
 const router = Router();
 
@@ -34,6 +33,6 @@ router.put("/:cid/products/:pid", modifyProductOnCart);
 
 router.get("/:cid/purchase", passportCall("jwt"), authorization("user"), renderCart)
 
-router.post("/:cid/purchase", passportCall("jwt"), authorization("user"), finishPurchase, sendTicketByEmail)
+router.post("/:cid/purchase", passportCall("jwt"), authorization("user"), finishPurchase)
 
 export default router;
